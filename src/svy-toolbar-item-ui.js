@@ -11,6 +11,27 @@ export default class SvyToolbarItemUi extends Plugin {
      * @inheritDoc
      */
 	init() {
+		const editor = this.editor;
+
+		editor.ui.componentFactory.add('svyButtonTest', locale => {
+			const view = new ButtonView(locale);
+
+			view.set({
+				label: 'This is a test',
+				tooltip: true,
+				withText: true
+			});
+
+			// Callback executed once the icon is clicked
+			view.on('execute', () => {
+				// fire a JS event
+				console.log('button clicked');
+			});
+
+			return view;
+		});
+		
+		return;
 		this.buttons = [];
 		const buttonDefinitions = this.editor.config.get('svyToolbarItem') || [];
 		buttonDefinitions.forEach(definition => this.createToolbarButton(definition));
