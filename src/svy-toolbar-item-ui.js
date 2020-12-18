@@ -34,7 +34,7 @@ export default class SvyToolbarItemUi extends Plugin {
 		const editor = this.editor;
 
 		editor.ui.componentFactory.add(itemConfig.name, locale => {
-            const button = this.createButton(itemConfig.label, itemConfig.icon, locale);
+            const button = this.createButton(itemConfig.label, itemConfig.icon);
 			button.isEnabled = true;
 			button._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
 
@@ -68,12 +68,11 @@ export default class SvyToolbarItemUi extends Plugin {
      * Internal creation method of ButtonView objects
      *
 	 * @param {String} label the button label
-	 * @param {String }icon the button icon
-	 * @param {String }icon the button locale
+	 * @param {String} icon the button icon
      * @private
      */
 	createButton(label, icon, locale) {
-		const button = new ButtonView(locale);
+		const button = new ButtonView();
 
 		button.set({
 			label,
