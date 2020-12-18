@@ -11,9 +11,18 @@ export default class SvyToolbarItemUi extends Plugin {
      * @inheritDoc
      */
 	init() {
+		console.log('SvyToolbarItemUi.init() got called');
+
 		this.toolbarItems = [];
+		
+		const editor = this.editor;
 		const itemDefinitions = this.editor.config.get('svyToolbarItem') || [];
-		itemDefinitions.forEach(definition => this.createToolbarItem(definition));
+
+		console.log(itemDefinitions);
+
+		itemDefinitions.forEach(
+			definition => this.createToolbarItem(definition)
+		);
 
 		this.editor.on('change:isReadOnly', () => {
 			this.toolbarItems.forEach(item => {
@@ -31,21 +40,25 @@ export default class SvyToolbarItemUi extends Plugin {
      * @private
      */
 	createToolbarItem(itemConfig) {
-		const editor = this.editor;
-
 		editor.ui.componentFactory.add(itemConfig.name, locale => {
-            const button = this.createButton(itemConfig.label, itemConfig.icon);
-			button.isEnabled = true;
-			button._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
+			const buttonView = this.createButton(itemConfig.label, itemConfig.icon);
+
+			buttonView.isEnabled = true;
+			buttonView._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
 
 			// Change enabled state and execute the specific callback on click.
-			this.listenTo(button, 'execute', () => {
-				this.setEnabled(button, false);
-				Promise.resolve(itemConfig.onClick(button)).then(() => this.setEnabled(button, true)).catch(() => this.setEnabled(button, true));
+			this.listenTo(buttonView, 'execute', () => {
+				this.setEnabled(buttonView, false);
+				Promise.resolve(itemConfig.onClick(buttonView))
+					.then(() => this.setEnabled(buttonView, true))
+					.catch(() => this.setEnabled(buttonView, true));
 			});
 
-			this.toolbarItems.push(button);
-			return button;
+			this.toolbarItems.push(buttonView);
+
+			console.log(buttonView);
+
+			return buttonView;
 		});
 	}
 
@@ -72,14 +85,14 @@ export default class SvyToolbarItemUi extends Plugin {
      * @private
      */
 	createButton(label, icon, locale) {
-		const button = new ButtonView();
+		const buttonView = new ButtonView();
 
-		button.set({
+		buttonView.set({
 			label,
 			icon,
 			tooltip: true
 		});
 
-		return button;
+		return buttonView;
 	}
 }
