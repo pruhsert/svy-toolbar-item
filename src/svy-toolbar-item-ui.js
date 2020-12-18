@@ -40,6 +40,8 @@ export default class SvyToolbarItemUi extends Plugin {
      * @private
      */
 	createToolbarItem(itemConfig) {
+		const editor = this.editor;
+		
 		editor.ui.componentFactory.add(itemConfig.name, locale => {
 			const buttonView = this.createButton(itemConfig.label, itemConfig.icon);
 
