@@ -41,37 +41,40 @@ export default class SvyToolbarItemUi extends Plugin {
      */
 	createToolbarItem(itemConfig) {
 		const editor = this.editor;
+		const componentName = itemConfig.name;
 
-		editor.ui.componentFactory.add(itemConfig.name, locale => {
-			const buttonView = new ButtonView();
+		editor.ui.componentFactory.add(componentName, locale => {
+			const view = new ButtonView( locale );
 
-			buttonView.set({
+			view.set({
 				label: itemConfig.label,
 				tooltip: true,
 				withText: true
 			});
 
 			if (itemConfig.icon) {
-				buttonView.set('icon', itemConfig.icon);
+				view.set('icon', itemConfig.icon);
 			}
 
-			buttonView.isEnabled = true;
+			view.isEnabled = true;
 
 			//buttonView._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
 
 			// Change enabled state and execute the specific callback on click.
-			this.listenTo(buttonView, 'execute', () => {
-				this.setEnabled(buttonView, false);
-				Promise.resolve(itemConfig.onClick(buttonView))
-					.then(() => this.setEnabled(buttonView, true))
-					.catch(() => this.setEnabled(buttonView, true));
-			});
+			if (1 === 2) {
+				this.listenTo(view, 'execute', () => {
+					this.setEnabled(view, false);
+					Promise.resolve(itemConfig.onClick(view))
+						.then(() => this.setEnabled(view, true))
+						.catch(() => this.setEnabled(view, true));
+				});
+			}
 
-			this.toolbarItems.push(buttonView);
+			this.toolbarItems.push(view);
 
-			console.log(buttonView);
+			console.log(view);
 
-			return buttonView;
+			return view;
 		});
 	}
 
