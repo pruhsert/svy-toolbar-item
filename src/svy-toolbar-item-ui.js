@@ -43,21 +43,26 @@ export default class SvyToolbarItemUi extends Plugin {
 		const editor = this.editor;
 
 		editor.ui.componentFactory.add(itemConfig.name, locale => {
-			const buttonView = this.createButton(itemConfig.label, itemConfig.icon);
+			const buttonView = new ButtonView();
+
+			buttonView.set({
+				label: itemConfig.label,
+				icon: itemConfig.icon,
+				tooltip: true,
+				withText: true
+			});
 
 			buttonView.isEnabled = true;
 
-			if (1 === 2) {
-				buttonView._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
+			//buttonView._syncDisabledState = typeof itemConfig.syncDisabledState === "boolean" ? itemConfig.syncDisabledState : true;
 
-				// Change enabled state and execute the specific callback on click.
-				this.listenTo(buttonView, 'execute', () => {
-					this.setEnabled(buttonView, false);
-					Promise.resolve(itemConfig.onClick(buttonView))
-						.then(() => this.setEnabled(buttonView, true))
-						.catch(() => this.setEnabled(buttonView, true));
-				});
-			}
+			// Change enabled state and execute the specific callback on click.
+			this.listenTo(buttonView, 'execute', () => {
+				this.setEnabled(buttonView, false);
+				Promise.resolve(itemConfig.onClick(buttonView))
+					.then(() => this.setEnabled(buttonView, true))
+					.catch(() => this.setEnabled(buttonView, true));
+			});
 
 			this.toolbarItems.push(buttonView);
 
@@ -80,24 +85,5 @@ export default class SvyToolbarItemUi extends Plugin {
 		} else {
 			item.isEnabled = enabled;
 		}
-	}
-
-	/**
-     * Internal creation method of ButtonView objects
-     *
-	 * @param {String} label the button label
-	 * @param {String} icon the button icon
-     * @private
-     */
-	createButton(label, icon, locale) {
-		const buttonView = new ButtonView();
-
-		buttonView.set({
-			label,
-			icon,
-			tooltip: true
-		});
-
-		return buttonView;
 	}
 }
