@@ -1,6 +1,6 @@
 {
   "name": "@pruhsert/ckeditor5-svy-toolbar-item",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "main": "src/svy-toolbar-item.js",
   "repository": {
     "type": "git",
