@@ -3,7 +3,7 @@
  */
 
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import SimpleButtonUi from './svy-toolbar-item-ui';
+import SvyToolbarItemUi from './svy-toolbar-item-ui';
 
 /**
  * The simple toolbar item plugin. It makes buttons in the toolbar configurable from outside.
