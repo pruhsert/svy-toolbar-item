@@ -36,7 +36,7 @@ export default class SvyToolbarItemUi extends Plugin {
     /**
      * Creates a toolbar item. Clicking this item will execute the callback provided
      *
-	 * @param itemConfig the item configuration
+	 * @param {{name:String,label:String,icon:String}} itemConfig the item configuration
      * @private
      */
 	createToolbarItem(itemConfig) {
@@ -47,10 +47,13 @@ export default class SvyToolbarItemUi extends Plugin {
 
 			buttonView.set({
 				label: itemConfig.label,
-				icon: itemConfig.icon,
 				tooltip: true,
 				withText: true
 			});
+
+			if (itemConfig.icon) {
+				buttonView.set('icon', itemConfig.icon);
+			}
 
 			buttonView.isEnabled = true;
 
