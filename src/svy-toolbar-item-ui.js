@@ -72,4 +72,16 @@ export default class SvyToolbarItemUi extends Plugin {
             return buttonView;
         } );
 	}
+
+	/**
+     * Enables or disables the button according to the button config
+	 * and the current readOnly-state of the editor.
+     *
+	 * @param button the buttonView
+	 * @param value new enabled state
+     * @private
+     */
+	enableButton(button, value) {
+		button.isEnabled = !this.editor.isReadOnly && value;
+	}
 }
