@@ -20,8 +20,7 @@ export default class SvyToolbarItemUi extends Plugin {
 		this.svyToolbarItems = [];
 
 		itemDefinitions.forEach(definition => 
-			definition.onClick = (buttonView) => console.log(buttonView);
-			this.createSvyToolbarItem(definition);
+			this.createSvyToolbarItem(definition)
 		);
 
 		//sync disabled state of editor and toolbar items
@@ -40,7 +39,9 @@ export default class SvyToolbarItemUi extends Plugin {
             //const command = editor.commands.get( 'insertSimpleBox' );
 
             // The button will be an instance of ButtonView.
-            const buttonView = new ButtonView( locale );
+			const buttonView = new ButtonView( locale );
+			
+			itemConfig.onClick = (buttonView) => console.log(buttonView);
 
             buttonView.set( {
                 // The t() function helps localize the editor. All strings enclosed in t() can be
