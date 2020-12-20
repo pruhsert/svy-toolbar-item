@@ -14,11 +14,18 @@ export default class SvyToolbarItemUi extends Plugin {
         console.log( 'SvyToolbarItemUi#init() got called' );
 
         const editor = this.editor;
-        const t = editor.t;
+		const t = editor.t;
+		const itemDefinitions = this.editor.config.get('svyToolbarItems') || [];
 
-        // The "simpleBox" button must be registered among the UI components of the editor
-        // to be displayed in the toolbar.
-        editor.ui.componentFactory.add( 'simpleBox', locale => {
+		this.svyToolbarItems = [];
+
+		itemDefinitions.forEach(definition => this.createSvyToolbarItem(definition));
+	}
+	
+	createSvyToolbarItem(itemConfig) {
+		const editor = this.editor;
+
+		editor.ui.componentFactory.add( itemConfig.name, locale => {
             // The state of the button will be bound to the widget command.
             //const command = editor.commands.get( 'insertSimpleBox' );
 
@@ -28,10 +35,13 @@ export default class SvyToolbarItemUi extends Plugin {
             buttonView.set( {
                 // The t() function helps localize the editor. All strings enclosed in t() can be
                 // translated and change when the language of the editor changes.
-                label: t( 'Simple Box' ),
-                withText: true,
-                tooltip: true
-            } );
+                label: itemConfig.label,
+                withText: itemConfig.withText,
+				tooltip: itemConfig.withTooltip,
+				icon: itemConfig.icon
+			} );
+			
+			buttonView.isEnabled = itemConfig.isEnabled;
 
             // Bind the state of the button to the command.
             //buttonView.bind( 'isOn', 'isEnabled' ).to( command, 'value', 'isEnabled' );
@@ -41,5 +51,5 @@ export default class SvyToolbarItemUi extends Plugin {
 
             return buttonView;
         } );
-    }
+	}
 }
