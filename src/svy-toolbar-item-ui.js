@@ -41,7 +41,7 @@ export default class SvyToolbarItemUi extends Plugin {
             // The button will be an instance of ButtonView.
 			const buttonView = new ButtonView( locale );
 			
-			itemConfig.onClick = (buttonView) => console.log(buttonView);
+			itemConfig.onClick = (buttonView) => $window.executeInlineScript(itemConfig.onClick.formname, itemConfig.onClick.script);
 
             buttonView.set( {
                 // The t() function helps localize the editor. All strings enclosed in t() can be
