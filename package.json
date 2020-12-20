@@ -1,6 +1,6 @@
 {
   "name": "@pruhsert/ckeditor5-svy-toolbar-item",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "main": "src/svy-toolbar-item.js",
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/pruhsert/svy-toolbar-item#readme",
   "dependencies": {
-    "@ckeditor/ckeditor5-core": "~23.1.0",
-    "@ckeditor/ckeditor5-ui": "~23.1.0"
+    "@ckeditor/ckeditor5-core": "~24.0.0",
+    "@ckeditor/ckeditor5-ui": "~24.0.0"
   }
 }

@@ -59,10 +59,12 @@ export default class SvyToolbarItemUi extends Plugin {
 			//this.listenTo( buttonView, 'execute', () => editor.execute( 'insertSimpleBox' ) );
 
 			// Change enabled state and execute the specific callback on click.
-			this.listenTo(buttonView, 'execute', () => {
-				this.enableButton(buttonView, false);
-				Promise.resolve(itemConfig.onClick(buttonView)).then(() => this.enableButton(buttonView, true)).catch(() => this.enableButton(buttonView, true));
-			});
+			if (itemConfig.onClick) {
+				this.listenTo(buttonView, 'execute', () => {
+					this.enableButton(buttonView, false);
+					Promise.resolve(itemConfig.onClick(buttonView)).then(() => this.enableButton(buttonView, true)).catch(() => this.enableButton(buttonView, true));
+				});
+			}
 			
 			//remember buttonView created to allow to sync disabled state of editor
 			this.svyToolbarItems.push(buttonView);
